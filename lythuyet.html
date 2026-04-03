@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trả lời Lý thuyết - Đề 1</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto; }
+        h2 { color: #ff007f; border-bottom: 2px solid #e0b1cb; }
+        code { background: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
+        pre { background: #2d2d2d; color: #ccc; padding: 15px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>BÀI LÀM LÝ THUYẾT</h1>
+    
+    <h2>1. Position Absolute vs Relative</h2>
+    <p><b>Relative:</b> Phần tử vẫn nằm trong luồng tài liệu (document flow), việc di chuyển (top/left) chỉ là hình ảnh ảo so với vị trí gốc. Thường dùng làm mốc cho phần tử con.</p>
+    <p><b>Absolute:</b> Bị nhấc khỏi luồng tài liệu, định vị theo phần tử cha gần nhất có <code>position: relative</code>. Nếu không có, nó định vị theo <code>body</code>.</p>
+    <p><b>Tình huống:</b> Dùng Relative cho thẻ bao ngoài và Absolute cho Icon thông báo ở góc trên bên phải thẻ đó. Khi deploy, việc sử dụng các đơn vị như % hoặc vh/vw cùng position giúp layout co giãn tốt trên mọi thiết bị.</p>
+
+    <h2>2. Domain, Hosting & DNS</h2>
+    <p><b>Quy trình:</b> Mua Domain (tên miền) -> Thuê Hosting (nơi chứa code) -> Trỏ bản ghi DNS (A hoặc CNAME) từ Domain về IP/Server của Hosting.</p>
+    <p><b>DNS:</b> Đóng vai trò là "danh bạ", dịch tên miền (dễ nhớ) sang địa chỉ IP (máy tính hiểu).</p>
+    <p><b>Công cụ:</b> GitHub Pages (miễn phí cho web tĩnh), Netlify (tự động build từ Git).</p>
+    <p><b>Rủi ro:</b> Nếu cấu hình sai (ví dụ để lộ file .env hoặc quyền write công khai), hacker có thể chiếm quyền điều khiển hoặc đánh cắp dữ liệu người dùng.</p>
+
+    <h2>3. Var, Let, Const & Hoisting</h2>
+    <ul>
+        <li><b>var:</b> Function scope, cho phép redeclare, bị hoisting (có thể gọi trước khi khai báo).</li>
+        <li><b>let/const:</b> Block scope (trong cặp {}), không cho phép redeclare. <code>const</code> không được gán lại giá trị.</li>
+    </ul>
+    <pre>
+// Lỗi thường gặp với var trong vòng lặp
+for (var i = 0; i < 3; i++) {
+    setTimeout(() => console.log(i), 100); // In ra 3, 3, 3 thay vì 0, 1, 2
+}
+    </pre>
+    <p><b>Debug:</b> Sử dụng F12 (Chrome DevTools), tab "Sources" để đặt Breakpoint hoặc tab "Console" để kiểm tra lỗi đỏ.</p>
+
+    <h2>4. Event Delegation</h2>
+    <p>Thay vì gắn event listener cho từng thẻ <code>li</code>, ta gắn 1 listener duy nhất cho thẻ <code>ul</code> (cha). Nhờ sự kiện "nổi bọt" (bubbling), thẻ cha sẽ bắt được sự kiện của con.</p>
+    <p><b>Lợi ích:</b> Tiết kiệm bộ nhớ, xử lý được cả các thẻ mới được thêm vào danh sách bằng JS sau này.</p>
+</body>
+</html>

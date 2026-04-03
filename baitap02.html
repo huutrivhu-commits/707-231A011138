@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký thành viên - Bài 02</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .form-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .error { color: #ff007f; font-size: 0.85rem; margin-top: 5px; display: none; }
+        button { width: 100%; padding: 12px; background: #ff007f; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+        button:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="form-card">
+        <h2>Đăng ký tài khoản</h2>
+        <form id="regForm">
+            <div class="group">
+                <label>Họ và tên</label>
+                <input type="text" id="fullname" required>
+            </div>
+            <div class="group">
+                <label>Email</label>
+                <input type="email" id="email" required>
+                <span id="emailErr" class="error">Email không đúng định dạng!</span>
+            </div>
+            <div class="group">
+                <label>Mật khẩu</label>
+                <input type="password" id="password" required>
+                <span id="passErr" class="error">Tối thiểu 8 ký tự, có hoa, thường và số!</span>
+            </div>
+            <div class="group">
+                <label><input type="checkbox" id="terms" required> Đồng ý điều khoản</label>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('regForm');
+        
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailRegex.test(document.getElementById('email').value)) {
+                document.getElementById('emailErr').style.display = 'block';
+                isValid = false;
+            } else { document.getElementById('emailErr').style.display = 'none'; }
+
+            // Validate Pass: 8 ký tự, 1 hoa, 1 thường, 1 số
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if(!passRegex.test(document.getElementById('password').value)) {
+                document.getElementById('passErr').style.display = 'block';
+                isValid = false;
+            } else { document.getElementById('passErr').style.display = 'none'; }
+
+            if(isValid) {
+                const userData = {
+                    name: document.getElementById('fullname').value,
+                    email: document.getElementById('email').value
+                };
+                localStorage.setItem('user', JSON.stringify(userData));
+                alert("Đăng ký thành công! Dữ liệu đã lưu vào LocalStorage.");
+                form.reset();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm kiếm sản phẩm</title>
+    <style>
+        #product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; }
+        .error { color: red; font-weight: bold; }
+        input { padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Nhập tên sản phẩm cần tìm...">
+    <div id="product-list"></div>
+    <p id="message" class="error"></p>
+
+    <script>
+        const products = [
+            { name: "Laptop Dell", price: "15tr" },
+            { name: "iPhone 15", price: "20tr" },
+            { name: "Chuột Logitech", price: "500k" },
+            { name: "Bàn phím cơ", price: "1tr" },
+            { name: "Tai nghe Sony", price: "3tr" }
+        ];
+
+        const listDiv = document.getElementById('product-list');
+        const input = document.getElementById('searchInput');
+        const msg = document.getElementById('message');
+
+        function render(data) {
+            listDiv.innerHTML = data.map(p => `<div class="card"><h3>${p.name}</h3><p>${p.price}</p></div>`).join('');
+            msg.textContent = data.length === 0 ? "Không tìm thấy sản phẩm!" : "";
+        }
+
+        input.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase().trim();
+            // Logic tư duy: Trim để bỏ khoảng trắng, filter lọc mảng
+            const filtered = products.filter(p => p.name.toLowerCase().includes(val));
+            render(filtered);
+        });
+
+        render(products);
+    </script>
+</body>
+</html>

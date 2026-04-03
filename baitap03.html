@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown Timer - Bài 03</title>
+    <style>
+        body { text-align: center; background: #0f0c29; color: white; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #timer { font-size: 6rem; transition: color 0.3s; }
+        .warning { color: #ff007f; animation: shake 0.2s infinite; }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -2px); }
+            100% { transform: translate(1px, 1px); }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>THỜI GIAN CÒN LẠI</h2>
+        <div id="timer">10:00</div>
+    </div>
+
+    <script>
+        let time = 60; // 10 phút tính bằng giây
+        const timerDisplay = document.getElementById('timer');
+
+        const countdown = setInterval(() => {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            timerDisplay.innerHTML = `${minutes}:${seconds}`;
+
+            if (time <= 60) {
+                timerDisplay.classList.add('warning');
+            }
+
+            if (time <= 0) {
+                clearInterval(countdown);
+                alert("Hết giờ làm bài!");
+            }
+            time--;
+        }, 1000);
+
+        // Chống memory leak bằng cách clear interval khi đóng trang (nếu cần)
+        window.onunload = () => clearInterval(countdown);
+    </script>
+</body>
+</html>
