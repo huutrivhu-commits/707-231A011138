@@ -1,0 +1,99 @@
+:root {
+    --bg-color: #0f0c29;
+    --card-back: #e0b1cb; /* Lavender */
+    --card-front: #ff007f; /* Pink Neon */
+    --text-color: #ffffff;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.stats {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* Grid Layout: Mobile 2 cột, Desktop 4 cột */
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    gap: 15px;
+    perspective: 1000px; /* Cần thiết cho hiệu ứng 3D */
+    justify-content: center;
+}
+
+@media (min-width: 600px) {
+    .memory-game {
+        grid-template-columns: repeat(4, 120px);
+    }
+}
+
+/* Card Style & Animation */
+.memory-card {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.memory-card:active {
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face, .back-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 8px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.front-face {
+    background: var(--card-front);
+    transform: rotateY(180deg);
+}
+
+.back-face {
+    background: var(--card-back);
+}
+
+.memory-card:hover .back-face {
+    filter: brightness(1.1);
+    box-shadow: 0 0 15px var(--card-back);
+}
+
+#reset-btn {
+    margin-top: 30px;
+    padding: 10px 25px;
+    background: var(--card-front);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
